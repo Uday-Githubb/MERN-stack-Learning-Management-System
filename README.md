@@ -1,6 +1,6 @@
-# MERN LMS – Recruiter-Ready Learning Platform
+# MERN stack Learning Management System (LMS)
 
-A professional Learning Management System demonstrating modern MERN architecture, production best practices, and recruiter-focused polish.
+A professional, futuristic Learning Management System showcasing modern MERN architecture, polished UI, animations, and production-ready tooling.
 
 - Frontend: React + Vite + TypeScript + Tailwind
 - Backend: Node.js + Express + MongoDB (Mongoose)

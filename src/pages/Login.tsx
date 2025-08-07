@@ -1,4 +1,4 @@
-import { FormEvent, useState } from "react";
+import { FormEvent, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "@/context/AuthProvider";
 import { Button } from "@/components/ui/button";
@@ -10,6 +10,8 @@ export default function Login() {
   const { login } = useAuth();
   const navigate = useNavigate();
   const { toast } = useToast();
+
+  useEffect(() => { document.title = "Login – MERN stack Learning Management System (LMS)"; }, []);
 
   const onSubmit = async (e: FormEvent) => {
     e.preventDefault();

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import ProgressChart from "@/components/Dashboard/ProgressChart";
 import { useAnalytics } from "@/hooks/useAnalytics";
 
@@ -31,6 +31,8 @@ function Heatmap({ data }: { data: number[] }) {
 
 export default function Dashboard() {
   const { progressSeries, heatmap, recommendations } = useAnalytics();
+  useEffect(() => { document.title = "Dashboard – MERN stack Learning Management System (LMS)"; }, []);
+
 
   return (
     <main className="min-h-screen bg-background">

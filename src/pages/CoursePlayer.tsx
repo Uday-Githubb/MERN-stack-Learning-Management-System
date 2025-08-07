@@ -1,4 +1,5 @@
-import React from "react";
+import React, { useEffect } from "react";
+
 
 export default function CoursePlayer() {
   // In a full MERN app, fetch course modules & signed S3 URLs here
@@ -7,10 +8,12 @@ export default function CoursePlayer() {
     { id: 2, title: "Module 1", src: "https://www.w3schools.com/html/movie.mp4" },
   ];
 
+  useEffect(() => { document.title = "Course Player – MERN stack Learning Management System (LMS)"; }, []);
+
   const [current, setCurrent] = React.useState(sources[0]);
 
   return (
-    <main className="container py-10">
+    <main className="container py-10 animate-fade-in">
       <header className="mb-6">
         <h1 className="text-2xl font-semibold">Course Player</h1>
         <p className="text-muted-foreground">Stream video content and track progress</p>
@@ -26,7 +29,7 @@ export default function CoursePlayer() {
             {sources.map((s) => (
               <li key={s.id}>
                 <button
-                  className="w-full text-left px-3 py-2 rounded-md border hover:bg-accent"
+                  className="w-full text-left px-3 py-2 rounded-md border hover:bg-accent hover-scale"
                   onClick={() => setCurrent(s)}
                 >
                   {s.title}
