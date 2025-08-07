@@ -1,73 +1,76 @@
-# Welcome to your Lovable project
+# MERN LMS – Recruiter-Ready Learning Platform
 
-## Project info
+A professional Learning Management System demonstrating modern MERN architecture, production best practices, and recruiter-focused polish.
 
-**URL**: https://lovable.dev/projects/4a8b010c-753a-4aaf-9af1-4ad3729b7e9d
+- Frontend: React + Vite + TypeScript + Tailwind
+- Backend: Node.js + Express + MongoDB (Mongoose)
+- Auth: JWT with roles (Student, Instructor, Admin) and refresh tokens
+- Analytics: Chart.js dashboards + progress heatmap
+- Tooling: Docker, GitHub Actions CI, Swagger, Postman collection, tests
 
-## How can I edit this code?
+## Architecture
 
-There are several ways of editing your application.
+<lov-mermaid>
+flowchart LR
+  A[React + Vite] -- Axios --> B(Express API)
+  B --> C[(MongoDB)]
+  B -- Caching --> D[(Redis)]
+  B -- S3 Signed URLs --> E[(AWS S3)]
+  A -- Realtime (optional) --> B
+  B -- OpenAPI --> F[Swagger UI]
+</lov-mermaid>
 
-**Use Lovable**
+## Monorepo Layout
 
-Simply visit the [Lovable Project](https://lovable.dev/projects/4a8b010c-753a-4aaf-9af1-4ad3729b7e9d) and start prompting.
+- server/ – Express API (MVC) with Swagger, rate limiting, JWT, Mongoose models
+- src/ – Frontend app (Router v6, protected routes, Context auth, charts)
+- __tests__/ – Jest + RTL examples
+- .github/workflows/ci.yml – CI pipeline
+- docker-compose.yml – One-command local stack (API + Mongo + Redis)
+- docs/postman_collection.json – API examples
 
-Changes made via Lovable will be committed automatically to this repo.
+## Quick Start
 
-**Use your preferred IDE**
+1. Frontend
+   - npm i
+   - npm run dev
+2. Backend
+   - docker compose up -d
+   - cd server && npm i && npm run start
+   - Open Swagger at http://localhost:5000/docs
 
-If you want to work locally using your own IDE, you can clone this repo and push changes. Pushed changes will also be reflected in Lovable.
+Environment variables (backend):
+- MONGO_URI=mongodb://localhost:27017/lms
+- JWT_SECRET=change-me
+- JWT_REFRESH_SECRET=change-me-too
+- AWS creds (optional) for S3 uploads
 
-The only requirement is having Node.js & npm installed - [install with nvm](https://github.com/nvm-sh/nvm#installing-and-updating)
+## Frontend Highlights
+- Protected routes and role checks
+- Axios interceptors for JWT
+- Dashboard with progress chart and heatmap
+- Accessible components and responsive layout
 
-Follow these steps:
+## Backend Highlights
+- Express rate-limit, structured error handling
+- Mongoose models: User, Course, Enrollment, Content
+- Swagger (OpenAPI 3) auto docs
+- Ready for Redis caching, S3 content storage
 
-```sh
-# Step 1: Clone the repository using the project's Git URL.
-git clone <YOUR_GIT_URL>
+## Testing
+- Frontend: React Testing Library example – __tests__/frontend/Login.test.js
+- Backend: Model test example – __tests__/backend/user.test.js
 
-# Step 2: Navigate to the project directory.
-cd <YOUR_PROJECT_NAME>
+## CI/CD
+- GitHub Actions: installs, lints, builds, and runs tests
 
-# Step 3: Install the necessary dependencies.
-npm i
+## Deployment
+- Backend: Heroku (Docker) or any container platform
+- Frontend: Netlify (npm run build output dist)
 
-# Step 4: Start the development server with auto-reloading and an instant preview.
-npm run dev
-```
+## Screenshots
+Add screenshots of Dashboard, Course Player, and Login after running locally.
 
-**Edit a file directly in GitHub**
+## Lighthouse
+Run: npx lighthouse http://localhost:5173 --view
 
-- Navigate to the desired file(s).
-- Click the "Edit" button (pencil icon) at the top right of the file view.
-- Make your changes and commit the changes.
-
-**Use GitHub Codespaces**
-
-- Navigate to the main page of your repository.
-- Click on the "Code" button (green button) near the top right.
-- Select the "Codespaces" tab.
-- Click on "New codespace" to launch a new Codespace environment.
-- Edit files directly within the Codespace and commit and push your changes once you're done.
-
-## What technologies are used for this project?
-
-This project is built with:
-
-- Vite
-- TypeScript
-- React
-- shadcn-ui
-- Tailwind CSS
-
-## How can I deploy this project?
-
-Simply open [Lovable](https://lovable.dev/projects/4a8b010c-753a-4aaf-9af1-4ad3729b7e9d) and click on Share -> Publish.
-
-## Can I connect a custom domain to my Lovable project?
-
-Yes, you can!
-
-To connect a domain, navigate to Project > Settings > Domains and click Connect Domain.
-
-Read more here: [Setting up a custom domain](https://docs.lovable.dev/tips-tricks/custom-domain#step-by-step-guide)

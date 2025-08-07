@@ -1,0 +1,44 @@
+openapi: 3.0.3
+info:
+  title: MERN LMS API
+  version: 1.0.0
+  description: REST API for Learning Management System
+servers:
+  - url: http://localhost:5000/api
+paths:
+  /auth/login:
+    post:
+      summary: Login
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                email: { type: string }
+                password: { type: string }
+      responses:
+        '200': { description: OK }
+  /auth/register:
+    post:
+      summary: Register a user
+      responses:
+        '201': { description: Created }
+  /auth/refresh:
+    post:
+      summary: Refresh access token
+      responses:
+        '200': { description: OK }
+  /secure/ping:
+    get:
+      security:
+        - bearerAuth: []
+      responses:
+        '200': { description: OK }
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
