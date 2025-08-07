@@ -1,30 +1,34 @@
 import React, { createContext, useContext, useEffect, useMemo, useState } from "react";
 
-/*
-  AuthProvider
-  - Lightweight demo auth layer for MERN-style app
-  - Stores JWT + role in localStorage (replace with real API calls in backend)
-  Roles: "Student" | "Instructor" | "Admin"
-*/
+// Types
+export type Role = "Student" | "Instructor" | "Admin";
+export interface AuthContextType {
+  user: null | { email: string; role: Role };
+  token: string | null;
+  login: (email: string, password: string) => Promise<void>;
+  logout: () => void;
+  isAuthenticated: boolean;
+  hasRole: (roles: Role[]) => boolean;
+}
 
-export const AuthContext = createContext({
-  user: null as null | { email: string; role: "Student" | "Instructor" | "Admin" },
-  token: null as string | null,
-  login: async (_email: string, _password: string) => {},
+const AuthContext = createContext<AuthContextType>({
+  user: null,
+  token: null,
+  login: async () => {},
   logout: () => {},
   isAuthenticated: false,
-  hasRole: (_roles: string[]) => false,
+  hasRole: () => false,
 });
 
 export const useAuth = () => useContext(AuthContext);
 
 export default function AuthProvider({ children }: { children: React.ReactNode }) {
   const [token, setToken] = useState<string | null>(null);
-  const [user, setUser] = useState<null | { email: string; role: "Student" | "Instructor" | "Admin" }>(null);
+  const [user, setUser] = useState<null | { email: string; role: Role }>(null);
 
   useEffect(() => {
     const t = localStorage.getItem("token");
-    const role = localStorage.getItem("role") as "Student" | "Instructor" | "Admin" | null;
+    const role = localStorage.getItem("role") as Role | null;
     const email = localStorage.getItem("email");
     if (t && role && email) {
       setToken(t);
@@ -33,10 +37,8 @@ export default function AuthProvider({ children }: { children: React.ReactNode }
   }, []);
 
   const login = async (email: string, _password: string) => {
-    // Demo logic: choose role by email prefix. Replace with real API:
-    // const res = await axios.post('/auth/login', { email, password });
-    // setToken(res.data.token); setUser(res.data.user);
-    const role = email.startsWith("admin")
+    // Demo: choose role by email prefix (replace with real API)
+    const role: Role = email.startsWith("admin")
       ? "Admin"
       : email.startsWith("instructor")
       ? "Instructor"
@@ -57,14 +59,14 @@ export default function AuthProvider({ children }: { children: React.ReactNode }
     setUser(null);
   };
 
-  const value = useMemo(
+  const value: AuthContextType = useMemo(
     () => ({
       user,
       token,
       login,
       logout,
       isAuthenticated: !!token,
-      hasRole: (roles: string[]) => (user ? roles.includes(user.role) : false),
+      hasRole: (roles: Role[]) => (user ? roles.includes(user.role) : false),
     }),
     [token, user]
   );
