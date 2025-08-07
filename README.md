@@ -1,6 +1,5 @@
 # MERN stack Learning Management System (LMS)
 
-A professional, futuristic Learning Management System showcasing modern MERN architecture, polished UI, animations, and production-ready tooling.
 
 - Frontend: React + Vite + TypeScript + Tailwind
 - Backend: Node.js + Express + MongoDB (Mongoose)
